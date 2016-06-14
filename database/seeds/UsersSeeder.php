@@ -1,0 +1,21 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class UsersSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run()
+    {
+        factory(App\User::class, 10)->create()
+            ->each(function ($u) {
+                factory(App\Phone::class)->create(
+                    [
+                        'user_id' => $u->getKey()
+                    ]
+                );
+            });
+    }
+}
