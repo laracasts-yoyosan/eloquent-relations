@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -14,6 +15,12 @@
 $generateId = function ($class) {
     return factory($class)->create()->getKey();
 };
+
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->randomElement(['admin', 'user', 'power user']),
+    ];
+});
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
