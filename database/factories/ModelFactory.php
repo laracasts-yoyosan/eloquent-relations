@@ -12,10 +12,6 @@
 |
 */
 
-$generateId = function ($class) {
-    return factory($class)->create()->getKey();
-};
-
 $factory->define(App\Role::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(['admin', 'user', 'power user']),
@@ -28,32 +24,29 @@ $factory->define(App\Country::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\User::class, function (Faker\Generator $faker) use ($generateId) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
-        'country_id' => function () use ($generateId) {
-            return $generateId(App\Country::class);
-        }
     ];
 });
 
-$factory->define(App\Phone::class, function (Faker\Generator $faker) use ($generateId) {
+$factory->define(App\Phone::class, function (Faker\Generator $faker) {
     return [
         'number' => $faker->phoneNumber,
     ];
 });
 
-$factory->define(App\Post::class, function (Faker\Generator $faker) use ($generateId) {
+$factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
     ];
 });
 
-$factory->define(App\Comment::class, function (Faker\Generator $faker) use ($generateId) {
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
     return [
         'body' => $faker->sentence,
     ];
