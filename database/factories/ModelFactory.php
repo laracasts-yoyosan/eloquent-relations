@@ -22,12 +22,21 @@ $factory->define(App\Role::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Country::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->country
+    ];
+});
+
+$factory->define(App\User::class, function (Faker\Generator $faker) use ($generateId) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+        'country_id' => function () use ($generateId) {
+            return $generateId(App\Country::class);
+        }
     ];
 });
 

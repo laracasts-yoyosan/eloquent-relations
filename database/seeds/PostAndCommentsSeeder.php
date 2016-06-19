@@ -10,10 +10,11 @@ class PostAndCommentsSeeder extends Seeder
      */
     public function run()
     {
-        $bloggers = factory(App\User::class, 5)->create();
+        $bloggers = App\User::all();
         $bloggersPosts = new Collection();
+
         $bloggers->each(function ($user) use (&$bloggersPosts) {
-            $posts = factory(App\Post::class, mt_rand(3, 6))->create(
+            $posts = factory(App\Post::class, random_int(3, 6))->create(
                 [
                     'user_id' => $user->getKey(),
                 ]
@@ -23,7 +24,7 @@ class PostAndCommentsSeeder extends Seeder
         });
 
         $bloggersPosts->each(function ($post) {
-            factory(App\Comment::class, mt_rand(2, 5))->create(
+            factory(App\Comment::class, random_int(2, 5))->create(
                 [
                     'post_id' => $post->getKey(),
                 ]
