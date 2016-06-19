@@ -18,21 +18,17 @@ class UsersSeeder extends Seeder
         $countries = factory(App\Country::class, 5)->create();
 
         factory(App\User::class, 10)->create(
-                [
-                    'country_id' => $countries[random_int(0, count($countries) - 1)]->getKey()
-                ]
-            )
-            ->each(function ($u) use ($roles, $countries) {
-                factory(App\Phone::class)->create(
-                    [
-                        'user_id' => $u->getKey()
-                    ]
-                );
+            [
+                'country_id' => $countries[random_int(0, count($countries) - 1)]->getKey()
+            ]
+        )
+        ->each(function ($u) use ($roles, $countries) {
+            $u->phone()->save(factory(App\Phone::class)->make());
 
-                $u->roles()->attach($roles->only(range(0, mt_rand(0, count($roles) - 1))));
-                $u->country()->associate($countries[random_int(0, count($countries) - 1)]);
+            $u->roles()->attach($roles->only(range(1, random_int(1, count($roles)))));
+            $u->country()->associate($countries[random_int(0, count($countries) - 1)]);
 
-                $u->save();
-            });
+            $u->save();
+        });
     }
 }

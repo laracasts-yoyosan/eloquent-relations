@@ -23,10 +23,13 @@ class PostAndCommentsSeeder extends Seeder
             $bloggersPosts = $bloggersPosts->merge($posts);
         });
 
-        $bloggersPosts->each(function ($post) {
+        $bloggersPosts->each(function ($post) use ($bloggers) {
             factory(App\Comment::class, random_int(2, 5))->create(
                 [
                     'post_id' => $post->getKey(),
+                    'user_id' => function () use ($post, $bloggers) {
+                        return $bloggers[random_int(0, count($bloggers) - 1)];
+                    }
                 ]
             );
         });

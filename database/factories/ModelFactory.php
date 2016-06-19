@@ -43,7 +43,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) use ($genera
 $factory->define(App\Phone::class, function (Faker\Generator $faker) use ($generateId) {
     return [
         'number' => $faker->phoneNumber,
-        'user_id' => $generateId(App\User::class),
     ];
 });
 
@@ -51,14 +50,11 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) use ($genera
     return [
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
-        'user_id' => $generateId(App\User::class),
     ];
 });
 
 $factory->define(App\Comment::class, function (Faker\Generator $faker) use ($generateId) {
     return [
         'body' => $faker->sentence,
-        'user_id' => $generateId(App\User::class),
-        'post_id' => $generateId(App\Post::class),
     ];
 });
