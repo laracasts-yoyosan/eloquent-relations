@@ -24,14 +24,22 @@ class PostAndCommentsSeeder extends Seeder
         });
 
         $bloggersPosts->each(function ($post) use ($bloggers) {
+            foreach (range(0, random_int(2, 5)) as $value) {
+                $post->likes()->save(factory(App\Like::class)->make());
+            }
+
             factory(App\Comment::class, random_int(2, 5))->create(
                 [
                     'post_id' => $post->getKey(),
                     'user_id' => function () use ($post, $bloggers) {
-                        return $bloggers[random_int(0, count($bloggers) - 1)];
+                        return $bloggers[random_int(0, count($bloggers) - 1)]->getKey();
                     }
                 ]
-            );
+            )->each(function ($comment) {
+                foreach (range(0, random_int(2, 5)) as $value) {
+                    $comment->likes()->save(factory(App\Like::class)->make());
+                }
+            });
         });
     }
 }

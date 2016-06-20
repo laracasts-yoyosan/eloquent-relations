@@ -51,3 +51,7 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
         'body' => $faker->sentence,
     ];
 });
+
+$factory->define(App\Like::class, function (Faker\Generator $faker) {
+    return [];
+});
