@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersSeeder::class);
         $this->call(PostAndCommentsSeeder::class);
+        $this->call(TagsForVideosAndPostsSeeder::class);
     }
 }

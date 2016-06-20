@@ -55,3 +55,15 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
 $factory->define(App\Like::class, function (Faker\Generator $faker) {
     return [];
 });
+
+$factory->define(App\Tag::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word
+    ];
+});
+
+$factory->define(App\Video::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->sentence
+    ];
+});
